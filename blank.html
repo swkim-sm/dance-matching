@@ -446,8 +446,8 @@
                                     <video id="webcam" autoplay playsinline style="
                                     -webkit-transform: scaleX(-1);
                                     transform: scaleX(-1);
-                                    width: 600;
-                                    height: 400;
+                                    width: 100%;
+                                    height: 100%;
                                     "></video>
         
                                 </div>
@@ -523,40 +523,9 @@
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 
-    <script type="text/javascript"> 
-        var hz = document.getElementById("hz");
-        var video = document.getElementById('webcam');
-        var canvas = document.createElement('canvas');
+    <script src="js/pose_detection.js"></script>
 
-        canvas.width = 600;
-        canvas.height = 400;
-
-        let detectorConfig, detector, context;
-
-        window.onload = async function () {
-
-            detectorConfig = {modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING};
-            detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, detectorConfig); 
-
-            navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-                console.log('it works!')
-                console.log(stream)
-                video.srcObject = stream;
-            })
-            .catch(function (err0r) {
-                console.log("Something went wrong!");
-            });
-
-            window.requestAnimationFrame(capture);
-        }
-
-        async function capture() {
-            var context = canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-            const poses = await detector.estimatePoses(canvas);
-            console.log(poses);
-            window.requestAnimationFrame(capture);
-        }
+    <!-- <script type="text/javascript"> 
         
         function playHz() { 
           hz.play();
@@ -565,7 +534,7 @@
           hz.pause(); 
         } 
 
-    </script> 
+    </script>  -->
     
 </body>
 
