@@ -1,29 +1,32 @@
 // varients for video
-var hz = document.getElementById("hz");
-var canvas_hz = document.createElement('canvas_hz');
+var video = document.getElementById("video");
+var canvasVideo = document.createElement('canvas');
 
 // varients for webcam
-var video = document.getElementById('webcam');
-var canvas = document.createElement('canvas');
+var webcam = document.getElementById('webcam');
+var canvasWebcam = document.createElement('canvas');
 
 
 // canvas size
-canvas.width = video.offsetWidth;
-canvas.height = video.offsetHeight;
-canvas_hz.width = hz.offsetWidth;
-canvas_hz.height = hz.offsetHeight;
+canvasWebcam.width = webcam.offsetWidth;
+canvasWebcam.height = webcam.offsetHeight;
+canvasVideo.width = video.offsetWidth;
+canvasVideo.height = video.offsetHeight;
 
 // varients for detecting 17 keypoints of pose in frame
 // let detectorConfig, detector, context;
 let detectorConfig, detector;
 
+console.log(canvasVideo.width, canvasVideo.height)
+
 
 // video play and pause
-function playHz() { 
-    hz.play();
+function playVideo() { 
+    video.play();
+    window.requestAnimationFrame(captureVideo);
   } 
-  function pauseHz() { 
-    hz.pause(); 
+  function pauseVideo() { 
+    video.pause(); 
   } 
 
 
@@ -38,7 +41,7 @@ window.onload = async function () {
     .then(function (stream) {
         console.log('webcam works!')
         console.log(stream)
-        video.srcObject = stream;
+        webcam.srcObject = stream;
     })
     .catch(function (err0r) {
         console.log("Something went wrong!");
@@ -50,8 +53,16 @@ window.onload = async function () {
 
 async function capture() {
     // context 용도 다시 찾기 - 아마 오버레이용 같은데 호출되는 곳 없어서 안 쓰임
-    var context = canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    const poses = await detector.estimatePoses(canvas);
-    console.log(poses);
+    var context = canvasWebcam.getContext('2d').drawImage(webcam, 0, 0, canvasWebcam.width, canvasWebcam.height);
+    const poses = await detector.estimatePoses(canvasWebcam);
+    // console.log(poses);
     window.requestAnimationFrame(capture);
+}
+
+async function captureVideo() {
+    // context 용도 다시 찾기 - 아마 오버레이용 같은데 호출되는 곳 없어서 안 쓰임
+    var context = canvasVideo.getContext('2d').drawImage(video, 0, 0, canvasVideo.width, canvasVideo.height);
+    const poses = await detector.estimatePoses(canvasVideo);
+    console.log(poses);
+    window.requestAnimationFrame(captureVideo);
 }
