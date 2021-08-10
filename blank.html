@@ -396,8 +396,8 @@
                                 <div class="card-body">
                                     <!-- <div class="chart-area"> -->
                                         <!-- <canvas id="myAreaChart"> -->
-                                            <video id="video" width=800 height=400>
-                                                <source src="video/video.mp4" type="video/mp4" type="video/mp4">
+                                            <video id="video" width=800 height=400 crossorigin='anonymous'>
+                                                <source src="video/video.mp4" type="video/mp4" crossorigin='anonymous'>
                                               
                                                 HTML5 video
                                               </video>
@@ -519,20 +519,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
-
+    <!-- <script src="https://cdn.jsdelivr.net/npm/posenet-similarity/dist/posenet-similarity.min.js"></script> -->
     <script src="js/pose_detection.js"></script>
-
-    <!-- <script type="text/javascript"> 
-        
-        function playHz() { 
-          hz.play();
-        } 
-        function pauseHz() { 
-          hz.pause(); 
-        } 
-
-    </script>  -->
     
 </body>
 
